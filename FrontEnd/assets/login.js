@@ -1,92 +1,42 @@
-// ** CREATION DE LA PAGE DE PRESENTATION DES TRAVAUX ** //
+async function ajoutListenersLogin() {
+    const formLogin = document.querySelector("#loginForm");
+    formLogin.addEventListener("submit", async function (event) {
+        event.preventDefault(); // empêche le rechargement de la page car nous utilisons submit 
 
-// récupération des travaux depuis l'API **
-async function fetchWorks() {
-    const response = await fetch("http://localhost:5678/api/works");
-    if (response.ok === true) {
-        const works = await response.json();
-        return works;
-    }
-    throw new Error("impossible de contacter le serveur");
-}
-fetchWorks().then(works => console.log(works))
+        const formValue = {  // création de l'objet avec les valeurs du formulaire pour la charge utile 
+            email: document.querySelector("[name=email]").value,
+            password: document.querySelector("[name=password]").value,
+            // on récupère la propriété value qui contient la saisie de l'utilisateur
+        };
 
-// création de la présentation des travaux **
-function workElements(works) {
-    const galleryContainer = document.querySelector(".gallery");
+        const chargeUtile = JSON.stringify(formValue); //on convertit la charge utile en JSON 
 
-    works.forEach((work) => {
-        const figure = document.createElement("figure");
-        const img = document.createElement("img");
-        img.src = work.imageUrl;
-        img.alt = work.title;
-        const figcaption = document.createElement("figcaption");
-        figcaption.textContent = work.title;
+        try {
+            // Appel de la fonction fetch avec ses 2 arguments : l'URL et un objet de configuration
+            const response = await fetch("http://localhost:5678/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: chargeUtile
+            });
 
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-        galleryContainer.appendChild(figure);
+            if (response.ok) {
+                // si la réponse est ok, on récupère les données envoyées par le serveur
+                const data = await response.json();
+
+                window.localStorage.setItem("token", data.token); // on stocke le token dans le localStorage
+                window.location.href = "index.html"; // redirection vers la page d'accueil
+
+            } else {  // si la réponse n'est pas ok, on affiche un message d'erreur
+                const errorMessage = document.querySelector(".error-message");
+                errorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe";
+            }
+
+        } catch (error) {
+            console.error("impossible de contacter le serveur");
+        }
     });
 }
 
-// ********* AJOUT DES FILTRES ********* //
-
-// récupération des boutons filtres depuis l'API **
-async function fetchCategories() {
-    const response = await fetch("http://localhost:5678/api/categories");
-    if (response.ok === true) {
-        const categories = await response.json();
-        return categories;
-    }
-    throw new Error("impossible de contacter le serveur");
-}
-fetchCategories().then(categories => console.log(categories))
-
-// création des boutons filtres **
-let allWorks = [];
-
-function categoryButtons(categories) {
-    const categoriesContainer = document.querySelector(".filters");
-
-    const allButton = document.createElement("button");
-    allButton.textContent = "Tous";
-    allButton.classList.add("filter-button");
-
-    allButton.addEventListener("click", () => {
-        document.querySelector(".gallery").innerHTML = "";
-        workElements(allWorks);
-    });
-
-    categoriesContainer.appendChild(allButton);
-
-    categories.forEach((category) => {
-        const button = document.createElement("button");
-        button.textContent = category.name;
-        button.classList.add("filter-button");
-
-        button.addEventListener("click", () => {
-            const filteredWorks = allWorks.filter(
-                work => work.categoryId === category.id
-            );
-            document.querySelector(".gallery").innerHTML = "";
-            workElements(filteredWorks);
-        });
-        categoriesContainer.appendChild(button);
-    });
-}
+ajoutListenersLogin();
 
 
-// ********* INITIALISATION DE LA PAGE ********* //
-async function init() {
-    allWorks = await fetchWorks();
-    const categories = await fetchCategories();
-
-    if (allWorks) {
-        workElements(allWorks);
-    }
-    if (categories) {
-        categoryButtons(categories);
-    }
-}
-
-init();

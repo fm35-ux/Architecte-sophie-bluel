@@ -315,11 +315,6 @@ input[type="submit"] {
 
 /***** LOGIN PAGE ******/
 
-h1 a {
-	text-decoration: none;
-	color: #B1663C;
-}
-
 .forgot-password {
 	color: black;
 	text-decoration: underline;
@@ -336,6 +331,13 @@ nav a {
 
 nav a:hover {
 	color: #B1663C;
+}
+
+.error-message {
+	color: red;
+	font-weight: bold;
+	margin-top: 10px;
+	text-align: center;
 }
 
 /***** FIN LOGIN PAGE ******/
