@@ -137,7 +137,7 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin: auto;
+	margin: 75px auto 0 auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
 }
@@ -145,7 +145,7 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 section {
@@ -185,6 +185,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 li:hover {
@@ -217,6 +218,56 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+/***** EDIT PAGE *****/
+
+.edit {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: black;
+	color: white;
+	height: 45px;
+	font-family: 'Work Sans';
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.edit p {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.container-editMode {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+	margin-top: 120px;
+}
+
+.editMode {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.change-btn {
+	background: none;
+	border: none;
+	display: flex;
+	gap: 10px;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	cursor: pointer;
+}
+
+
 
 /********* STYLE BOUTONS FILTRES ********/
 .filters {
@@ -340,7 +391,57 @@ nav a:hover {
 	text-align: center;
 }
 
-/***** FIN LOGIN PAGE ******/
+/***** MODAL1 ******/
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-wrapper {
+	overflow: auto;
+	background-color: #FFF;
+	width: 630px;
+	max-width: 90%;
+	border-radius: 10px;
+	padding: 60px 100px;
+}
+
+.modal h3 {
+	font-family: 'Work Sans';
+	font-size: 28px;
+	color: black;
+	margin-bottom: 40px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.close-modal {
+	background: none;
+	border: none;
+	display: flex;
+	font-size: 24px;
+	cursor: pointer;
+
+}
+
+.btn-add-photo {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 14px;
+	color: white;
+	background-color: #1D6154;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+	padding: 10px 45px 10px 45px;
+}
 
 
 footer nav ul {

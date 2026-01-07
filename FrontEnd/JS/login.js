@@ -1,7 +1,7 @@
 async function ajoutListenersLogin() {
     const formLogin = document.querySelector("#loginForm");
     formLogin.addEventListener("submit", async function (event) {
-        event.preventDefault(); // empêche le rechargement de la page car nous utilisons submit 
+        event.preventDefault(); // empêche le rechargement de la page
 
         const formValue = {  // création de l'objet avec les valeurs du formulaire pour la charge utile 
             email: document.querySelector("[name=email]").value,
@@ -9,14 +9,14 @@ async function ajoutListenersLogin() {
             // on récupère la propriété value qui contient la saisie de l'utilisateur
         };
 
-        const chargeUtile = JSON.stringify(formValue); //on convertit la charge utile en JSON 
+        const payload = JSON.stringify(formValue); //on convertit la charge utile en JSON 
 
         try {
             // Appel de la fonction fetch avec ses 2 arguments : l'URL et un objet de configuration
             const response = await fetch("http://localhost:5678/api/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: chargeUtile
+                body: payload
             });
 
             if (response.ok) {
@@ -33,6 +33,8 @@ async function ajoutListenersLogin() {
 
         } catch (error) {
             console.error("impossible de contacter le serveur");
+            // const errorMessage = document.querySelector(".error-message");
+            // errorMessage.textContent = "A CHANGER";
         }
     });
 }

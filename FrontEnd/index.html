@@ -9,12 +9,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="./assets/main.js" defer></script>
+	<script src="./JS/main.js" defer></script>
 </head>
 
 <body>
+	<!-- Mode administrateur gérer en JS dans main.js -->
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
@@ -33,7 +37,8 @@
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
-				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la
+					livraison
 					finale du chantier.</p>
 				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
 					couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
@@ -43,14 +48,37 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="container-editMode">
+				<h2>Mes Projets</h2>
+				<div class="editMode">
+					<!--Ajout ici de l'icone et du <p> modifiez en mode admin-->
+				</div>
+			</div>
 			<div class="filters">
 				<!-- Ajout ici des boutons de filtres function categoryButtons dans main.js-->
 			</div>
+
 			<div class="gallery">
 				<!-- Ajout ici des éléments via function workElements dans main.js-->
 			</div>
 		</section>
+		<!-- ***** MODAL1 ***** -->
+		<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal"
+			style="display:flex;">
+
+			<div class="modal-wrapper js-modal-close">
+
+				<button class="close-modal js-modal-close">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+
+				<h3 id="titlemodal">Galerie photo</h3>
+
+				<div class="modal-gallery"></div>
+				<button class="btn-add-photo">Ajouter une photo</button>
+			</div>
+
+		</aside>
 		<section id="contact">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
