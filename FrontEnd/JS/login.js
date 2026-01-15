@@ -1,4 +1,4 @@
-async function ajoutListenersLogin() {
+async function setupLoginListeners() {
     const formLogin = document.querySelector("#loginForm");
     formLogin.addEventListener("submit", async function (event) {
         event.preventDefault(); // empêche le rechargement de la page
@@ -33,12 +33,12 @@ async function ajoutListenersLogin() {
 
         } catch (error) {
             console.error("impossible de contacter le serveur");
-            // const errorMessage = document.querySelector(".error-message");
-            // errorMessage.textContent = "A CHANGER";
+            const errorMessage = document.querySelector(".error-message");
+            errorMessage.textContent = "Erreur contact serveur";
         }
     });
 }
 
-ajoutListenersLogin();
+setupLoginListeners();
 
 

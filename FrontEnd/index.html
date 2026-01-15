@@ -15,6 +15,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./JS/main.js" defer></script>
+	<script src="./JS/admin.js" defer></script>
 </head>
 
 <body>
@@ -63,21 +64,40 @@
 			</div>
 		</section>
 		<!-- ***** MODAL1 ***** -->
-		<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal"
-			style="display:flex;">
+		<aside id="modal-gallery-element" class="modal" aria-hidden="true" role="dialog"
+			aria-labelledby="modal-gallery-title">
 
-			<div class="modal-wrapper js-modal-close">
+			<div class="overlay modal-trigger"></div>
 
-				<button class="close-modal js-modal-close">
-					<i class="fa-solid fa-xmark"></i>
-				</button>
+			<div class="modal-wrapper">
 
-				<h3 id="titlemodal">Galerie photo</h3>
+				<h3 id="modal-title">Galerie photo</h3>
 
 				<div class="modal-gallery"></div>
-				<button class="btn-add-photo">Ajouter une photo</button>
-			</div>
 
+				<div class="modal-line"></div>
+
+			</div>
+		</aside>
+		<!-- ***** MODAL2 ***** -->
+		<aside id="modal-add-photo" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal">
+
+			<div class="overlay modal-trigger"></div>
+
+			<div class="modal-wrapper">
+
+				<h3 id="titlemodal">Ajout photo</h3>
+
+				<form class="form-add-photo">
+
+					<div class="form-upload"></div>
+
+					<div class="form-fields"></div>
+
+					<div class="modal-line"></div>
+
+				</form>
+			</div>
 		</aside>
 		<section id="contact">
 			<h2>Contact</h2>
