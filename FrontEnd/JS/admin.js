@@ -43,20 +43,20 @@ function logOut() {
 
 //****** MODALE ********//
 
-//OUVERTURE,FERMETURE et LIENS DES MODALES
+//OUVERTURE,FERMETURE et NAVIGATION DES MODALES
 
 function setupModal(works) {
-    const modal1 = document.querySelector("#modal-gallery-element");
-    const modal2 = document.querySelector("#modal-add-photo");
+    const modalGallery = document.querySelector("#modal-gallery-element");
+    const modalAddPhoto = document.querySelector("#modal-add-photo");
 
-    createModal1Elements();
-    createModal2Elements();
+    createModalGalleryElements();
+    createModalAddPhotoElements();
 
     // ouverture de la modale 1
     const modalOpen = document.querySelector(".editMode");
     modalOpen.addEventListener("click", () => {
-        modal1.classList.add("active");
-        modal1.setAttribute("aria-hidden", "false");
+        modalGallery.classList.add("active");
+        modalGallery.setAttribute("aria-hidden", "false");
         displayModal1Works(works);
 
     });
@@ -64,29 +64,29 @@ function setupModal(works) {
     //Lien entre modale 1 et modale 2
     const btnAddPhoto = document.querySelector(".modal-btn-add-photo");
     btnAddPhoto.addEventListener("click", () => {
-        modal1.classList.remove("active");
-        modal2.classList.add("active");
-        modal1.setAttribute("aria-hidden", "true");
-        modal2.setAttribute("aria-hidden", "false");
+        modalGallery.classList.remove("active");
+        modalAddPhoto.classList.add("active");
+        modalGallery.setAttribute("aria-hidden", "true");
+        modalAddPhoto.setAttribute("aria-hidden", "false");
     });
 
     //Retour de la modale 2 à la modale 1
     const backBtn = document.querySelector(".back-modal");
     backBtn.addEventListener("click", () => {
-        modal2.classList.remove("active");
-        modal1.classList.add("active");
-        modal2.setAttribute("aria-hidden", "true");
-        modal1.setAttribute("aria-hidden", "false");
+        modalAddPhoto.classList.remove("active");
+        modalGallery.classList.add("active");
+        modalAddPhoto.setAttribute("aria-hidden", "true");
+        modalGallery.setAttribute("aria-hidden", "false");
     });
 
     //fermeture de la modale (bouton croix et overlay)
     const triggers = document.querySelectorAll(".modal-trigger");
     triggers.forEach(trigger => {
         trigger.addEventListener("click", () => {
-            modal1.classList.remove("active");
-            modal2.classList.remove("active");
-            modal1.setAttribute("aria-hidden", "true");
-            modal2.setAttribute("aria-hidden", "true");
+            modalGallery.classList.remove("active");
+            modalAddPhoto.classList.remove("active");
+            modalGallery.setAttribute("aria-hidden", "true");
+            modalAddPhoto.setAttribute("aria-hidden", "true");
         });
     });
 
@@ -95,9 +95,9 @@ function setupModal(works) {
 //****** MODALE 1 ********// 
 
 //création des BOUTONS de la modale 1
-function createModal1Elements() {
-    const modal1 = document.getElementById("modal-gallery-element");
-    const modalWrapper = modal1.querySelector(".modal-wrapper");
+function createModalGalleryElements() {
+    const modalGallery = document.getElementById("modal-gallery-element");
+    const modalWrapper = modalGallery.querySelector(".modal-wrapper");
 
     //création du bouton fermer
     const closeBtn = document.createElement("button");
@@ -137,7 +137,7 @@ function displayModal1Works(works) {
 
         deleteBtn.addEventListener("click", (event) => {
             event.preventDefault();
-            console.log("élément à supprimer numéro", work.id); //au clique du bouton, on affiche l'id du work à supprimer
+            console.log("élément à supprimer numéro", work.id); //au clique, on affiche l'id du work à supprimer
             deleteWork(work.id); //appel de la fonction de suppression
         });
 
@@ -150,10 +150,10 @@ function displayModal1Works(works) {
 
 //****** MODALE 2 ********// 
 
-function createModal2Elements() {
-    const modal2 = document.getElementById("modal-add-photo");
-    const modalWrapper = modal2.querySelector(".modal-wrapper");
-    const form = modal2.querySelector(".form-add-photo");
+function createModalAddPhotoElements() {
+    const modalAddPhoto = document.getElementById("modal-add-photo");
+    const modalWrapper = modalAddPhoto.querySelector(".modal-wrapper");
+    const form = modalAddPhoto.querySelector(".form-add-photo");
 
     //création des boutons fermer et retour
     const closeBtn = document.createElement("button");
@@ -164,21 +164,25 @@ function createModal2Elements() {
     backBtn.classList.add("back-modal");
     backBtn.innerHTML = `<i class="fa-solid fa-arrow-left"></i>`;
 
+    //ajout des boutons au DOM
     modalWrapper.prepend(closeBtn);
     modalWrapper.prepend(backBtn);
 
+    //Appel des fonctions qui créent les formulaires et le bouton valider
     setupFormUpload(form);
     setupFormFields(form);
     setupSubmitButton(form);
+    previewImage(form);
 }
 
 //formulaire form UPLOAD
 function setupFormUpload(form) {
-    const formUploadDiv = form.querySelector(".form-upload");
-    formUploadDiv.innerHTML = "";
+    const formUploadContainer = form.querySelector(".form-upload-container");
+    const formUploadElement = form.querySelector(".form-upload-element");
+    formUploadElement.innerHTML = "";
 
     const iconImage = document.createElement("i");
-    iconImage.classList.add("fa-regular", "fa-image", "icon-image");
+    iconImage.classList.add("fa-regular", "fa-image", "icon-image",);
 
     const labelFile = document.createElement("label");
     labelFile.setAttribute("for", "form-file");
@@ -196,15 +200,15 @@ function setupFormUpload(form) {
     pInfo.classList.add("form-upload-info");
     pInfo.textContent = "jpg, png : 4mo max";
 
-    //intégration du bloc Upload dans le DOM
-    formUploadDiv.appendChild(iconImage);
-    formUploadDiv.appendChild(labelFile);
-    formUploadDiv.appendChild(inputFile);
-    formUploadDiv.appendChild(pInfo);
+    formUploadElement.appendChild(iconImage);
+    formUploadElement.appendChild(labelFile);
+    formUploadElement.appendChild(inputFile);
+    formUploadElement.appendChild(pInfo);
+
+    previewImage(form);
 }
 
-
-//formulaire FORM FIELDS
+//formulaire form FIELDS
 function setupFormFields(form) {
     const formFieldsDiv = form.querySelector(".form-fields");
     formFieldsDiv.innerHTML = "";
@@ -233,7 +237,6 @@ function setupFormFields(form) {
     optionDefault.disabled = true;
     optionDefault.selected = true;
 
-    //intégration du bloc Titre et Catégorie dans le DOM 
     selectCategory.appendChild(optionDefault);
     formFieldsDiv.appendChild(labelTitle);
     formFieldsDiv.appendChild(inputTitle);
@@ -252,8 +255,37 @@ function setupSubmitButton(form) {
     form.appendChild(submitBtn);
 }
 
-//**SUPPRESSION PHOTOS **/
+//pour le preview de l'image uploadée
+function previewImage(form) {
+    const inputfile = document.getElementById("form-file");
+    const formUploadContainer = form.querySelector(".form-upload-container");
+    const formUploadElement = form.querySelector(".form-upload-element");
 
+    //création de l'élément img pour le preview
+    const imgPreview = document.createElement("img");
+    imgPreview.classList.add("img-preview");
+    imgPreview.style.display = "none";
+    formUploadContainer.appendChild(imgPreview);
+
+
+    //événement au clique sur l'input file
+    inputfile.addEventListener("change", () => {
+
+        if (inputfile.files && inputfile.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = "block";
+                formUploadElement.style.display = "none";
+            };
+            reader.readAsDataURL(inputfile.files[0]);
+        }
+    });
+}
+
+
+
+//**SUPPRESSION PHOTOS **/
 async function deleteWork(workId) {
     const token = window.localStorage.getItem("token");
 
@@ -274,9 +306,9 @@ async function deleteWork(workId) {
                 figureToDelete.forEach(figure => figure.remove());
             }
         } else {
-            console.error("Erreur lors de la suppression de la photo");
+            console.error("Echec de la suppression. Le serveur à répondu :", response.status);
         }
     } catch (error) {
-        console.error("Erreur lors de la suppression de la photo:", error);
+        console.error("Impossible de contacter le serveur:", error);
     }
 }
