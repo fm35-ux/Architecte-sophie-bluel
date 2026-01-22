@@ -520,6 +520,7 @@ nav a:hover {
 	border-radius: 60px;
 	border: none;
 	padding: 10px 45px 10px 45px;
+	cursor: pointer;
 }
 
 /*modale 1 et 2*/
@@ -633,12 +634,12 @@ nav a:hover {
 .modal-btn-validate:disabled {
 	background-color: #A7A7A7;
 	cursor: not-allowed;
-
 }
 
 /*modale 2*/
 .modal-btn-validate:not(:disabled) {
 	background-color: #1D6154;
+	cursor: pointer;
 }
 
 /*modale 2*/
