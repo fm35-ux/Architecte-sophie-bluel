@@ -1,4 +1,4 @@
-async function setupLoginListeners() {
+function setupLoginListeners() {
     const formLogin = document.querySelector("#loginForm");
     formLogin.addEventListener("submit", async function (event) {
         event.preventDefault(); // empêche le rechargement de la page

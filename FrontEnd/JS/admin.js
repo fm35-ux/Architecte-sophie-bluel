@@ -387,6 +387,7 @@ function setupFormSubmission(form) {
         const inputFile = form.querySelector("input[name='image']");
         const errorMessageModalFields = form.querySelector("#error-message-modal-fields");
 
+        // Vérification des champs du formulaire si problème avec le disabled du bouton
         if (inputTitle.value === "" || selectCategory.value === "" || inputFile.files.length === 0) {
             if (errorMessageModalFields) {
                 errorMessageModalFields.textContent = "Veuillez remplir tous les champs du formulaire.";
